@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order confirmed — Seaway</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main" class="wrap confirm-page"><div id="confirm-root"></div></main>
+<div id="site-footer"></div>
+<script type="module">
+    import { bootStore, setSEO } from '/js/shell.js';
+    import { t, loc, escapeHtml } from '/js/i18n.js';
+    import { fmt } from '/js/money.js';
+    import { clearCart } from '/js/cart.js';
+    import { clearPromo } from '/js/promo.js';
+    import { STORAGE_KEYS } from '/js/config.js';
+    import { sizeLabel } from '/js/ui.js';
+
+    await bootStore({ page: 'confirmation' });
+    setSEO({ title: t('confirm.title'), path: '/order-confirmation' });
+    const num = new URLSearchParams(location.search).get('o');
+    let o = null;
+    try { o = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.lastOrder)); } catch { /* none */ }
+    if (o && num && o.number !== num) o = null;
+    clearCart(); clearPromo();
+    const root = document.getElementById('confirm-root');
+    root.innerHTML = `
+        <div class="confirm">
+            <img src="/assets/img/emblem.webp" alt="" width="96" height="96">
+            <p class="eyebrow eyebrow--dark">${t('confirm.thanks')}</p>
+            <h1>${t('confirm.title')}</h1>
+            <p class="lead">${o?.customer?.email ? t('confirm.text', { email: escapeHtml(o.customer.email) }) : t('confirm.textNoEmail')}</p>
+            ${num ? `<p class="order-no"><span>${t('confirm.number')}</span> <strong>${escapeHtml(num)}</strong></p>` : ''}
+            ${o ? `
+            <div class="confirm-card">
+                <ul class="sum-list">${o.items.map(i => `<li><div><strong>${escapeHtml(loc(i.name))}</strong><small>${escapeHtml(t('color.' + i.color))} · ${escapeHtml(sizeLabel(i.size))} × ${i.qty}</small></div><span>${fmt(i.price * i.qty, o.currency, o.rate)}</span></li>`).join('')}</ul>
+                <dl class="totals">
+                    <div><dt>${t('cart.subtotal')}</dt><dd>${fmt(o.subtotal, o.currency, o.rate)}</dd></div>
+                    ${o.discount ? `<div class="disc"><dt>${t('cart.discount')}</dt><dd>−${fmt(o.discount, o.currency, o.rate)}</dd></div>` : ''}
+                    <div><dt>${t('checkout.shippingLine')}</dt><dd>${o.shippingCost ? fmt(o.shippingCost, o.currency, o.rate) : t('checkout.free')}</dd></div>
+                    <div class="grand"><dt>${t('checkout.total')}</dt><dd>${fmt(o.total, o.currency, o.rate)}</dd></div>
+                </dl>
+                <p class="note">${t('pay.' + o.payment.method)} — ${o.payment.method === 'cod' ? t('confirm.codNote') : t('confirm.paidNote')}</p>
+            </div>` : ''}
+            <p><a class="btn btn--primary" href="/shop">${t('confirm.continue')}</a> <a class="btn btn--ghost" href="/account">${t('confirm.viewOrders')}</a></p>
+        </div>`;
+</script>
+</body>
+</html>

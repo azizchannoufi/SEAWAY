@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sun setting over the Mediterranean sea">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0B2545"/>
+      <stop offset=".45" stop-color="#27507C"/>
+      <stop offset=".72" stop-color="#E8B890"/>
+      <stop offset="1" stop-color="#F3DDB9"/>
+    </linearGradient>
+    <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B4170"/><stop offset="1" stop-color="#0B2545"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F6C9A0" stop-opacity=".75"/><stop offset="1" stop-color="#F6C9A0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1090" cy="560" r="360" fill="url(#glow)"/>
+  <g opacity=".22" stroke="#F3DDB9" stroke-width="3">
+    <path d="M1090 560 L1090 120"/><path d="M1090 560 L1330 160"/><path d="M1090 560 L1500 330"/><path d="M1090 560 L850 160"/><path d="M1090 560 L680 330"/>
+  </g>
+  <circle cx="1090" cy="560" r="150" fill="#C8553D"/>
+  <path d="M0 560 H1600 V900 H0Z" fill="url(#sea1)"/>
+  <path d="M0 560 H1600" stroke="#F3DDB9" stroke-opacity=".5" stroke-width="2"/>
+  <g fill="none" stroke="#E8D8BE" stroke-linecap="round">
+    <path d="M900 600 H1280" stroke-opacity=".5" stroke-width="3"/>
+    <path d="M960 626 H1220" stroke-opacity=".38" stroke-width="3"/>
+    <path d="M1010 654 H1170" stroke-opacity=".28" stroke-width="3"/>
+  </g>
+  <path d="M0 700 Q200 640 420 700 T840 700 T1260 700 T1680 700 V900 H0Z" fill="#0F305A"/>
+  <path d="M0 760 Q240 700 480 760 T960 760 T1440 760 T1920 760 V900 H0Z" fill="#0B2545"/>
+  <path d="M0 700 Q200 640 420 700 T840 700 T1260 700 T1680 700" fill="none" stroke="#E8D8BE" stroke-opacity=".35" stroke-width="3"/>
+  <path d="M0 760 Q240 700 480 760 T960 760 T1440 760 T1920 760" fill="none" stroke="#E8D8BE" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M0 830 Q300 790 600 830 T1200 830 T1800 830" fill="#081B35"/>
+  <g transform="translate(1340 478)" fill="#0B2545">
+    <path d="M60 0 L60 90 L8 90 Z"/><path d="M68 18 L68 90 L112 90 Z" opacity=".85"/>
+    <path d="M0 98 H120 L106 114 H14 Z"/>
+  </g>
+</svg>

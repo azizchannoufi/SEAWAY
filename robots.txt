@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /checkout
+Disallow: /account
+Disallow: /order-confirmation
+
+# Replace with your real domain:
+Sitemap: https://www.seaway.example/sitemap.xml

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product — Seaway</title>
+    <meta name="description" content="Seaway coastal lifestyle clothing for sea lovers.">
+    <meta property="og:type" content="product">
+    <meta property="og:image" content="/assets/img/og-image.jpg">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main id="main" class="wrap pdp-page">
+    <nav class="crumbs" aria-label="Breadcrumb" id="crumbs"></nav>
+    <div id="pdp" aria-live="polite"><div class="skeleton-pdp"></div></div>
+
+    <section class="reviews" id="reviews" aria-labelledby="rev-title" hidden>
+        <h2 id="rev-title" data-i18n="reviews.title">Customer reviews</h2>
+        <div class="rev-layout">
+            <div class="rev-summary" id="rev-summary"></div>
+            <div>
+                <ul class="rev-list" id="rev-list"></ul>
+                <details class="rev-form-wrap" id="rev-form-wrap">
+                    <summary class="btn btn--ghost" data-i18n="reviews.write">Write a review</summary>
+                    <form id="rev-form" novalidate>
+                        <fieldset class="rating-input">
+                            <legend data-i18n="reviews.yourRating">Your rating</legend>
+                            <div class="stars-radio">
+                                <input type="radio" name="rating" id="rt5" value="5"><label for="rt5" title="5">★</label>
+                                <input type="radio" name="rating" id="rt4" value="4"><label for="rt4" title="4">★</label>
+                                <input type="radio" name="rating" id="rt3" value="3"><label for="rt3" title="3">★</label>
+                                <input type="radio" name="rating" id="rt2" value="2"><label for="rt2" title="2">★</label>
+                                <input type="radio" name="rating" id="rt1" value="1"><label for="rt1" title="1">★</label>
+                            </div>
+                        </fieldset>
+                        <div class="field"><label for="rv-name" data-i18n="reviews.name">Your name</label><input id="rv-name" name="name" required maxlength="60" autocomplete="name"></div>
+                        <div class="field"><label for="rv-text" data-i18n="reviews.text">Your review</label><textarea id="rv-text" name="text" rows="4" required maxlength="1000"></textarea></div>
+                        <button class="btn btn--primary" type="submit" data-i18n="reviews.submit">Submit review</button>
+                        <p class="form-msg" role="status" aria-live="polite" id="rev-msg"></p>
+                    </form>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec related" id="related" aria-labelledby="rel-title" hidden>
+        <h2 id="rel-title" data-i18n="product.related">You may also like</h2>
+        <div class="grid grid--4" id="related-grid"></div>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+<script type="module" src="/js/pages/product.js"></script>
+</body>
+</html>

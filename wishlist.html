@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wishlist — Seaway</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+    <header class="page-head wrap">
+        <h1 data-i18n="wishlist.title">Wishlist</h1>
+        <p class="page-sub" data-i18n="wishlist.subtitle">The pieces you love, saved on this device.</p>
+    </header>
+    <div class="wrap" style="padding-bottom:var(--s-9)">
+        <div class="grid grid--4" id="wish-grid"></div>
+        <div class="empty" id="wish-empty" hidden><p data-i18n="wishlist.empty">Nothing here yet. Tap the heart on a product to save it.</p><a class="btn btn--primary" href="/shop" data-i18n="cart.emptyCta">Start shopping</a></div>
+    </div>
+</main>
+<div id="site-footer"></div>
+<script type="module">
+    import { bootStore, setSEO } from '/js/shell.js';
+    import { t } from '/js/i18n.js';
+    import { getProducts, getApprovedRatings } from '/js/db.js';
+    import { getWishlist } from '/js/cart.js';
+    import { productCard } from '/js/ui.js';
+
+    await bootStore({ page: 'wishlist' });
+    setSEO({ title: t('wishlist.title'), path: '/wishlist' });
+    const [all, ratings] = await Promise.all([getProducts(), getApprovedRatings().catch(() => ({}))]);
+    const render = () => {
+        const ids = getWishlist();
+        const list = ids.map(id => all.find(p => p.id === id)).filter(Boolean);
+        document.getElementById('wish-grid').innerHTML = list.map(p => productCard(p, { ratings })).join('');
+        document.getElementById('wish-empty').hidden = list.length > 0;
+    };
+    render();
+    // cards stay until the page is refreshed so an accidental un-heart can be undone
+</script>
+</body>
+</html>

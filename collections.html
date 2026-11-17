@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Collections — Seaway</title>
+    <meta name="description" content="Browse every Seaway collection: ponchos, t-shirts, sweats, shorts, pants, caps and accessories.">
+    <meta property="og:title" content="Collections — Seaway">
+    <meta property="og:image" content="/assets/img/og-image.jpg">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+    <header class="page-head wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="nav.home">Home</a> <span aria-hidden="true">/</span> <span aria-current="page" data-i18n="nav.collections">Collections</span></nav>
+        <h1 data-i18n="collections.title">Collections</h1>
+        <p class="page-sub" data-i18n="collections.subtitle">Seven ways to dress for the sea.</p>
+    </header>
+    <div class="wrap" style="padding-bottom:var(--s-9)">
+        <div class="tiles tiles--lg" id="collection-tiles"></div>
+    </div>
+</main>
+<div id="site-footer"></div>
+<script type="module">
+    import { bootStore, ctx, setSEO } from '/js/shell.js';
+    import { t, loc, escapeHtml } from '/js/i18n.js';
+    import { collectionUrl } from '/js/ui.js';
+    import { collectionArt } from '/js/placeholders.js';
+    import { getProducts } from '/js/db.js';
+
+    await bootStore({ page: 'collections' });
+    setSEO({ title: t('collections.title'), description: t('collections.subtitle'), path: '/collections' });
+    const products = await getProducts();
+    document.getElementById('collection-tiles').innerHTML = ctx.categories.map(c => {
+        const n = products.filter(p => p.category === c.id).length;
+        return `<a class="tile" href="${collectionUrl(c)}">
+            <img src="${c.image || collectionArt(c.art || 'tee', c.hex || '#0B2545')}" alt="" width="400" height="500" loading="lazy">
+            <span class="tile-name">${escapeHtml(loc(c.name))}<small>${t(n === 1 ? 'collections.itemOne' : 'collections.items', { n })}</small></span>
+            <span class="tile-desc">${escapeHtml(loc(c.desc))}</span>
+        </a>`;
+    }).join('');
+</script>
+</body>
+</html>

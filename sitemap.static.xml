@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Static fallback. On Firebase Hosting, /sitemap.xml is served by the "sitemap" Cloud Function
+     (functions/index.js), which also lists every product and collection. Replace the domain below if you use this file. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.seaway.example/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.seaway.example/shop</loc><priority>0.9</priority></url>
+  <url><loc>https://www.seaway.example/collections</loc><priority>0.8</priority></url>
+  <url><loc>https://www.seaway.example/story</loc><priority>0.7</priority></url>
+  <url><loc>https://www.seaway.example/contact</loc><priority>0.5</priority></url>
+  <url><loc>https://www.seaway.example/faq</loc><priority>0.5</priority></url>
+  <url><loc>https://www.seaway.example/shipping</loc><priority>0.5</priority></url>
+  <url><loc>https://www.seaway.example/size-guide</loc><priority>0.5</priority></url>
+  <url><loc>https://www.seaway.example/terms</loc><priority>0.2</priority></url>
+  <url><loc>https://www.seaway.example/privacy</loc><priority>0.2</priority></url>
+  <url><loc>https://www.seaway.example/cookies</loc><priority>0.2</priority></url>
+</urlset>

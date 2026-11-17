@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seaway — The way of those who love the sea</title>
+    <meta name="description" content="Seaway is a coastal lifestyle brand for sea lovers and water sports athletes. Fouta-inspired ponchos, organic cotton tees and sweats for after the session.">
+    <meta property="og:title" content="Seaway — The way of those who love the sea">
+    <meta property="og:description" content="A warm, free, authentic wardrobe for after the session, inspired by the Mediterranean.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/assets/img/og-image.jpg">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="preload" as="image" href="/assets/img/hero.svg">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main id="main">
+    <!-- HERO ----------------------------------------------------------->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media" id="hero-media">
+            <img src="/assets/img/hero.svg" alt="" width="1600" height="900" fetchpriority="high">
+        </div>
+        <div class="hero-shade"></div>
+        <div class="wrap hero-in">
+            <p class="eyebrow" data-i18n="home.eyebrow">Coastal lifestyle · Mediterranean spirit</p>
+            <h1 id="hero-title" data-i18n="home.heroTitle">The way of those who love the sea.</h1>
+            <p class="hero-lead" data-i18n="home.heroText">A warm, free, authentic wardrobe for the moment you step out of the water.</p>
+            <div class="hero-cta">
+                <a class="btn btn--light" href="/shop" data-i18n="home.shopNow">Shop now</a>
+                <a class="btn btn--outline-light" href="/story" data-i18n="home.ourStory">Our story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR ------------------------------------------------------>
+    <section class="trust" aria-label="Seaway promises">
+        <ul class="wrap trust-in">
+            <li><strong data-i18n="trust.shipping">Free shipping</strong><span data-i18n="trust.shippingSub">On orders over €90</span></li>
+            <li><strong data-i18n="trust.returns">Easy returns</strong><span data-i18n="trust.returnsSub">30 days to change your mind</span></li>
+            <li><strong data-i18n="trust.secure">Secure payment</strong><span data-i18n="trust.secureSub">Card, PayPal or cash on delivery</span></li>
+            <li><strong data-i18n="trust.organic">Made with care</strong><span data-i18n="trust.organicSub">Organic and recycled fabrics</span></li>
+        </ul>
+    </section>
+
+    <!-- FEATURED COLLECTION ------------------------------------------->
+    <section class="sec wrap reveal" aria-labelledby="feat-title">
+        <header class="sec-head">
+            <div>
+                <p class="eyebrow eyebrow--dark" data-i18n="home.featuredEyebrow">Featured collection</p>
+                <h2 id="feat-title" data-i18n="home.featuredTitle">The Poncho Collection</h2>
+                <p class="sec-sub" data-i18n="home.featuredText">Fouta-inspired and made for the minute after the session.</p>
+            </div>
+            <a class="link-arrow" href="/collections/ponchos" data-i18n="home.viewAll">View all</a>
+        </header>
+        <div class="grid grid--4" id="featured-grid" aria-live="polite"><div class="skeleton-grid"></div></div>
+    </section>
+
+    <!-- COLLECTION TILES ---------------------------------------------->
+    <section class="sec sec--sand" aria-labelledby="col-title">
+        <div class="wrap reveal">
+            <header class="sec-head sec-head--center">
+                <h2 id="col-title" data-i18n="home.collectionsTitle">Shop by collection</h2>
+            </header>
+            <div class="tiles" id="collection-tiles"></div>
+        </div>
+    </section>
+
+    <!-- BEST SELLERS --------------------------------------------------->
+    <section class="sec wrap reveal" aria-labelledby="best-title">
+        <header class="sec-head">
+            <div>
+                <p class="eyebrow eyebrow--dark" data-i18n="home.bestEyebrow">Loved by the community</p>
+                <h2 id="best-title" data-i18n="home.bestTitle">Best sellers</h2>
+            </div>
+            <a class="link-arrow" href="/shop?sort=popular" data-i18n="home.shopAll">Shop all</a>
+        </header>
+        <div class="grid grid--4" id="best-grid" aria-live="polite"><div class="skeleton-grid"></div></div>
+    </section>
+
+    <!-- BRAND STORY TEASER -------------------------------------------->
+    <section class="story-teaser" aria-labelledby="st-title">
+        <div class="wrap split reveal">
+            <div class="split-media">
+                <img src="/assets/img/emblem.webp" alt="Seaway emblem — Mediterranean sea spirit" width="480" height="480" loading="lazy">
+            </div>
+            <div class="split-text">
+                <p class="eyebrow eyebrow--dark" data-i18n="home.storyEyebrow">Our story</p>
+                <h2 id="st-title" data-i18n="home.storyTitle">Born from the moment you step out of the water.</h2>
+                <p data-i18n="home.storyText">Cold skin, salty hair, a smile you can't hide. Seaway began with that feeling and a simple wish: a warm, free and authentic wardrobe for what comes after the session, inspired by the Mediterranean and the craft of the traditional fouta.</p>
+                <a class="btn btn--primary" href="/story" data-i18n="home.storyCta">Read our story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MATERIALS & CRAFTSMANSHIP ------------------------------------->
+    <section class="sec craft" aria-labelledby="craft-title">
+        <div class="wrap reveal">
+            <header class="sec-head sec-head--center">
+                <p class="eyebrow" data-i18n="craft.eyebrow">Materials &amp; craftsmanship</p>
+                <h2 id="craft-title" data-i18n="craft.title">Made to be lived in, by the sea.</h2>
+                <p class="sec-sub" data-i18n="craft.text">We choose fabrics that dry, warm and last, then work with small workshops around the Mediterranean.</p>
+            </header>
+            <div class="craft-grid">
+                <article>
+                    <span class="craft-num">01</span>
+                    <h3 data-i18n="craft.1.title">Fouta terry</h3>
+                    <p data-i18n="craft.1.text">Dense cotton terry woven with traditional fouta stripes, soft on the skin and fast to dry.</p>
+                </article>
+                <article>
+                    <span class="craft-num">02</span>
+                    <h3 data-i18n="craft.2.title">Organic cotton</h3>
+                    <p data-i18n="craft.2.text">GOTS-certified cotton grown without pesticides: heavier, softer and better with every wash.</p>
+                </article>
+                <article>
+                    <span class="craft-num">03</span>
+                    <h3 data-i18n="craft.3.title">Technical, recycled</h3>
+                    <p data-i18n="craft.3.text">Windproof shells and quick-dry shorts made from recycled fibres, finished by hand.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM / TIKTOK / UGC -------------------------------------->
+    <section class="sec wrap reveal" aria-labelledby="ugc-title">
+        <header class="sec-head sec-head--center">
+            <p class="eyebrow eyebrow--dark" id="ugc-handle">@seaway</p>
+            <h2 id="ugc-title" data-i18n="ugc.title">Seen on the water</h2>
+            <p class="sec-sub" data-i18n="ugc.text">Tag #seawaysession for a chance to be featured.</p>
+        </header>
+        <div class="ugc" id="ugc-grid"></div>
+        <p class="center"><a class="btn btn--ghost" id="ugc-follow" href="#" target="_blank" rel="noopener" data-i18n="ugc.follow">Follow us on Instagram</a></p>
+    </section>
+
+    <!-- NEWSLETTER BAND ------------------------------------------------>
+    <section class="news-band" aria-labelledby="nb-title">
+        <div class="wrap news-in reveal">
+            <h2 id="nb-title" data-i18n="home.newsTitle">Join the crew, get 10% off.</h2>
+            <p data-i18n="home.newsText">New drops, session stories and your welcome code, straight to your inbox.</p>
+            <form id="home-news" class="inline-form inline-form--lg" novalidate>
+                <label class="sr" for="hn-email" data-i18n="footer.emailPlaceholder">Your email</label>
+                <input id="hn-email" type="email" autocomplete="email" required data-i18n-attr="placeholder:footer.emailPlaceholder" placeholder="Your email">
+                <button class="btn btn--light" type="submit" data-i18n="footer.subscribe">Subscribe</button>
+            </form>
+            <p class="form-msg" role="status" aria-live="polite" id="hn-msg"></p>
+        </div>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+<script type="module" src="/js/pages/home.js"></script>
+</body>
+</html>

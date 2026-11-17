@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop — Seaway</title>
+    <meta name="description" content="Shop Seaway: ponchos, organic cotton tees, sweats, shorts, pants, caps and accessories for sea lovers.">
+    <meta property="og:title" content="Shop — Seaway">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/assets/img/og-image.jpg">
+    <meta name="theme-color" content="#0B2545">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main id="main">
+    <header class="page-head wrap">
+        <nav class="crumbs" aria-label="Breadcrumb" id="crumbs"></nav>
+        <h1 id="shop-title" data-i18n="shop.title">Shop</h1>
+        <p class="page-sub" id="shop-sub" data-i18n="shop.subtitle">Everything for after the session.</p>
+    </header>
+
+    <div class="wrap shop">
+        <div class="toolbar">
+            <button type="button" class="btn btn--ghost btn--sm filters-toggle" id="filters-open" aria-controls="filters" aria-expanded="false" data-i18n="shop.filters">Filters</button>
+            <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+            <div class="sort">
+                <label for="sort" data-i18n="shop.sortBy">Sort by</label>
+                <select id="sort">
+                    <option value="featured" data-i18n="shop.sort.featured">Featured</option>
+                    <option value="popular" data-i18n="shop.sort.popular">Best sellers</option>
+                    <option value="new" data-i18n="shop.sort.new">Newest</option>
+                    <option value="price-asc" data-i18n="shop.sort.priceAsc">Price: low to high</option>
+                    <option value="price-desc" data-i18n="shop.sort.priceDesc">Price: high to low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="shop-layout">
+            <aside class="filters" id="filters" aria-label="Filters">
+                <div class="filters-head">
+                    <h2 data-i18n="shop.filters">Filters</h2>
+                    <button type="button" class="icon-btn" id="filters-close" data-i18n-attr="aria-label:common.close" aria-label="Close">×</button>
+                </div>
+                <div class="filters-body" id="filters-body"></div>
+                <div class="filters-foot">
+                    <button type="button" class="btn btn--ghost" id="filters-clear" data-i18n="shop.clear">Clear all</button>
+                    <button type="button" class="btn btn--primary" id="filters-apply" data-i18n="shop.showResults">Show results</button>
+                </div>
+            </aside>
+            <section aria-label="Products">
+                <div class="grid grid--3" id="grid" aria-live="polite"><div class="skeleton-grid"></div></div>
+                <p class="empty" id="empty" hidden data-i18n="shop.empty">No products match these filters.</p>
+            </section>
+        </div>
+    </div>
+</main>
+
+<div id="site-footer"></div>
+<script type="module" src="/js/pages/shop.js"></script>
+</body>
+</html>

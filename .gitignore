@@ -1,0 +1,8 @@
+node_modules/
+functions/.env
+functions/.env.*
+!functions/.env.example
+.firebaserc
+firebase-debug.log
+*.local
+.DS_Store

@@ -1,0 +1,16 @@
+{
+  "name": "seaway-shop",
+  "version": "1.0.0",
+  "description": "Seaway — coastal lifestyle e-commerce (static storefront + Firebase backend + admin dashboard)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "deploy": "firebase deploy",
+    "deploy:rules": "firebase deploy --only firestore:rules,storage",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:hosting": "firebase deploy --only hosting"
+  },
+  "engines": { "node": ">=18" }
+}

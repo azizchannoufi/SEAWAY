@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Sign in · Seaway Admin</title>
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="login-body">
+<form class="login-card" id="form" novalidate>
+    <img src="/assets/img/emblem.webp" alt="Seaway" width="64" height="64">
+    <h1>Seaway admin</h1>
+    <p>Sign in to manage your shop.</p>
+    <div class="login-demo" id="demo" hidden>Demo mode — use <strong id="demo-email"></strong> / <strong id="demo-pass"></strong></div>
+    <div class="login-err" id="err" role="alert" hidden></div>
+    <div class="field"><label for="email">Email</label><input class="input" id="email" type="email" autocomplete="username" required></div>
+    <div class="field"><label for="password">Password</label><input class="input" id="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn primary" id="go" type="submit">Sign in</button>
+    <a href="/" class="hint" style="text-align:center">← Back to the shop</a>
+</form>
+<script type="module">
+    import { isDemo, adminLogin, currentAdmin } from '/js/db.js';
+    import { SITE } from '/js/config.js';
+    const $ = (s) => document.querySelector(s);
+    if (await currentAdmin().catch(() => null)) location.replace('/admin/');
+    if (isDemo) {
+        $('#demo').hidden = false;
+        $('#demo-email').textContent = SITE.demoAdmin.email;
+        $('#demo-pass').textContent = SITE.demoAdmin.password;
+        $('#email').value = SITE.demoAdmin.email;
+        $('#password').value = SITE.demoAdmin.password;
+    }
+    const MSG = {
+        not_admin: 'This account is not on the admin list. Add its UID to the "admins" collection (see README).',
+        'auth/invalid-credential': 'Wrong email or password.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/too-many-requests': 'Too many attempts. Please try again in a few minutes.'
+    };
+    $('#form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const err = $('#err'); err.hidden = true;
+        const btn = $('#go'); btn.disabled = true; btn.textContent = 'Signing in…';
+        try {
+            await adminLogin($('#email').value, $('#password').value);
+            location.href = '/admin/';
+        } catch (ex) {
+            const code = ex.code || ex.message;
+            err.textContent = MSG[code] || 'Sign-in failed. Please check your details.';
+            err.hidden = false;
+            btn.disabled = false; btn.textContent = 'Sign in';
+        }
+    });
+</script>
+</body>
+</html>

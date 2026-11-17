@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+
+    // Admin = a Firebase Auth user whose UID has a document in /admins/{uid}.
+    // Create that document by hand in the Firebase console (see README).
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function str(v, max) { return v is string && v.size() <= max; }
+    function emailOk(v) { return v is string && v.size() <= 200 && v.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$'); }
+
+    // ── Admin allowlist (console only) ──────────────────────
+    match /admins/{uid} {
+      allow read: if isSignedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // ── Public catalog (read) / admin (write) ───────────────
+    match /products/{id}   { allow read: if true; allow write: if isAdmin(); }
+    match /categories/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /settings/{id}   { allow read: if true; allow write: if isAdmin(); }   // never store secrets here
+
+    // ── Promo codes: shoppers can fetch one code by id, not list them all ──
+    match /promos/{code} {
+      allow get: if true;
+      allow list, write: if isAdmin();
+    }
+
+    // ── Orders ──────────────────────────────────────────────
+    // Anyone can place an order (guest checkout). The Cloud Function recomputes
+    // prices, totals and stock server-side, so client numbers are never trusted.
+    function orderCreateValid() {
+      let d = request.resource.data;
+      return d.keys().hasAll(['items', 'customer', 'shipping', 'payment', 'status', 'createdAt', 'total'])
+        && d.keys().hasOnly(['items', 'subtotal', 'discount', 'shippingCost', 'total', 'promoCode', 'currency', 'rate', 'lang',
+                             'customer', 'shipping', 'notes', 'payment', 'status', 'createdAt', 'number', 'uid'])
+        && d.status == 'pending'
+        && d.items is list && d.items.size() > 0 && d.items.size() <= 50
+        && d.total is number && d.total >= 0 && d.total <= 100000
+        && d.customer is map && str(d.customer.name, 100) && d.customer.name.size() > 0 && emailOk(d.customer.email)
+        && d.shipping is map && str(d.shipping.address, 300) && str(d.shipping.city, 100) && str(d.shipping.country, 8)
+        && d.payment is map && d.payment.method in ['cod', 'stripe', 'paypal']
+        && (!('notes' in d) || str(d.notes, 1000))
+        && (!('uid' in d) || (isSignedIn() && d.uid == request.auth.uid));
+    }
+    match /orders/{orderId} {
+      allow create: if orderCreateValid();
+      allow read: if isAdmin() || (isSignedIn() && resource.data.uid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // ── Reviews: public can submit (pending) and read approved ones ──
+    match /reviews/{id} {
+      allow read: if resource.data.status == 'approved' || isAdmin();
+      allow create: if request.resource.data.keys().hasOnly(['productId', 'name', 'text', 'rating', 'status', 'createdAt'])
+        && request.resource.data.status == 'pending'
+        && str(request.resource.data.productId, 100) && str(request.resource.data.name, 60)
+        && str(request.resource.data.text, 1000)
+        && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5;
+      allow update, delete: if isAdmin();
+    }
+
+    // ── Newsletter: create only (cannot be read or overwritten by the public) ──
+    match /subscribers/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['email', 'source', 'createdAt'])
+        && emailOk(request.resource.data.email) && str(request.resource.data.source, 30);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ── Contact form messages ───────────────────────────────
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'email', 'subject', 'message', 'read', 'createdAt'])
+        && str(request.resource.data.name, 100) && emailOk(request.resource.data.email)
+        && str(request.resource.data.subject, 40) && str(request.resource.data.message, 2000)
+        && request.resource.data.read == false;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ── Customer profiles (optional accounts) ───────────────
+    match /customers/{uid} {
+      allow create, update: if isSignedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['email', 'name', 'phone', 'createdAt'])
+        && emailOk(request.resource.data.email) && str(request.resource.data.name, 100);
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == uid);
+      allow delete: if isAdmin();
+    }
+
+    // Everything else is closed.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
